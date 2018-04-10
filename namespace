@@ -6,7 +6,7 @@ C++标准程序库中的标识符都定义在一个名为std的namespace中。
 
 命名空间的定义采用namespace关键字，如下所示：
 
-namespace namespace_name{//命名空间的名字
+namespace namespace_name/*命名空间的名字*/{
   //自己编写命名空间的具体声明
 }//定义完成
 
