@@ -1,0 +1,90 @@
+namespace 命名空间，指的是标识符的可见集合，定义了一个标识符被识别的范围。
+采用命名空间的原因是，同一个标识符，在不同的库中可能代表不同的含义/操作，因此采用命名空间进行区分。
+就好比两个叫张三的学生，一个是三班的，一个是四班的，张三就是标识符，班级就是命名空间，通过三班的张三和四班的张三这种表述，我们就能区别这两个学生。
+
+C++标准程序库中的标识符都定义在一个名为std的namespace中。
+
+命名空间的定义采用namespace关键字，如下所示：
+
+namespace namespace_name{//命名空间的名字
+  //自己编写命名空间的具体声明
+}//定义完成
+
+实例1：
+#include <iostream>
+using namespace std;
+
+namespace space_1{
+  void func(){
+    cout<<"Imoprt space_1"<<endl;
+  }
+}
+
+int main(){
+  //调用第一个命名空间中的函数
+  space_1::func();
+  
+  return 0；
+}
+
+执行结果：
+Import space_1
+
+using指令可以标注命名空间，语句格式为using namespace
+这样，在实际使用该命名空间中的标识符时，不用在前面加上命名空间的名称。这个指令将告诉编译器，后续的代码将使用指定命名空间中的标识符名称。
+
+实例2（如刚刚的实例1，改动后为）：
+#include <iostream>
+using namespace std;
+
+namespace space_1{
+  void func(){
+    cout<<"Imoprt space_1"<<endl;
+  }
+}
+
+using namespace space_1; //声明命名空间space_1
+int main(){
+  //调用第一个命名空间中的函数
+  func(); //func()前面不需要加上“space_1::”的代码
+  
+  return 0；
+}
+
+执行结果：
+Import space_1
+
+using指令也可以用来指定命名空间中的特定项目。如，若只打算使用std命名空间的cout部分，可以使用此语句：using std::cout;
+执行此语句后，在之后的代码中，使用cout就可以不用加上"std::"作为前缀，但使用std命名空间中的其他项目时，仍需要加上“std::”的前缀。
+
+实例3：
+#include <iostream>
+using std::cout;
+
+int main(){
+  cout<<"cout is used without std, while endl is not."<<std::endl;
+  return 0;
+}
+
+执行结果：
+cout is used without std, while endl is not.
+
+using 指令引入的名称遵循正常的范围规则。
+名称从使用 using 指令开始是可见的（被识别的），直到该范围结束。此时，在范围以外定义的同名实体是隐藏的（不可见的，即不被识别的）。
+
+命名空间可以嵌套，可以在一个命名空间中定义另一个命名空间，如下所示：
+namespace space_1{
+  //声明
+  namespace space_2{
+    //声明
+  }
+}
+
+定义完成后，可以通过"::"运算符来访问嵌套命名空间中的成员，如下所示：
+
+using namespace space_1::space_2; //访问space_2中的成员
+using namespace space_1; //访问space_1中的成员
+
+在上述语句中，由于space_2属于space_1，space_2在space_1声明的范围内，因此第二条语句也可以访问space_2中的成员。
+
+(参考)Reference：http://www.runoob.com/cplusplus/cpp-namespaces.html
